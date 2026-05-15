@@ -1,0 +1,12 @@
+Você pode usar:
+
+XAMPP
+Laragon
+
+Coloque a pasta dentro do:
+
+htdocs
+
+Depois abra:
+
+http://localhost/jogo-forca
