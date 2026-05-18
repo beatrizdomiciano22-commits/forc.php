@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
     <title>Login Admin</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -12,9 +13,9 @@
 
     <form action="admin.php" method="POST">
 
-        <input type="text" placeholder="Usuário">
+        <input type="text" name="usuario" placeholder="Usuário" required>
 
-        <input type="password" placeholder="Senha">
+        <input type="password" name="senha" placeholder="Senha" required>
 
         <button type="submit">ENTRAR</button>
 
