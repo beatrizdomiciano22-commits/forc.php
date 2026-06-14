@@ -2,32 +2,39 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    $usuarioDigitado = $_POST['usuario'];
-    $senhaDigitada = $_POST['senha'];
-
-    $usuariosCadastrados = ['admin', 'jogador1', 'professor'];
-    $senhaCorreta = '1234'; // Senha padrão para o teste
-
-    if (!in_array($usuarioDigitado, $usuariosCadastrados)) {
+    // Verifica se os campos 'usuario' e 'senha' existem no formulário enviado
+    if (isset($_POST['usuario']) && isset($_POST['senha'])) {
         
-        echo "<div style='color: red; font-family: Arial; text-align: center; margin-top: 50px;'>";
-        echo "<h2>❌ Erro: Este login não existe no jogo!</h2>";
-        echo "<p>Verifique o nome de usuário ou crie uma conta.</p>";
-        echo "<a href='index.php'>Voltar para o Login</a>";
-        echo "</div>";
+        $usuarioDigitado = $_POST['usuario'];
+        $senhaDigitada = $_POST['senha'];
 
-    } else {
+        $usuariosCadastrados = ['admin', 'jogador1', 'professor'];
+        $senhaCorreta = '1234'; // Senha padrão para o teste
 
-        if ($senhaDigitada === $senhaCorreta) {
-            echo "<div style='color: green; font-family: Arial; text-align: center; margin-top: 50px;'>";
-            echo "<h2>🎉 Bem-vindo ao painel do Jogo, " . $usuarioDigitado . "!</h2>";
+        // 1. Verifica se o usuário existe na lista
+        if (!in_array($usuarioDigitado, $usuariosCadastrados)) {
+            echo "<div style='color: red; font-family: Arial; text-align: center; margin-top: 50px;'>";
+            echo "<h2>❌ Erro: Este login não existe no jogo!</h2>";
+            echo "<p>Verifique o nome de usuário ou crie uma conta.</p>";
+            echo "<a href='index.php'>Voltar para o Login</a>";
             echo "</div>";
         } else {
-            echo "<div style='color: orange; font-family: Arial; text-align: center; margin-top: 50px;'>";
-            echo "<h2>🔑 Senha incorreta!</h2>";
-            echo "<a href='index.php'>Tentar novamente</a>";
-            echo "</div>";
+            // 2. Se o usuário existe, verifica se a senha está certa
+            if ($senhaDigitada === $senhaCorreta) {
+                echo "<div style='color: green; font-family: Arial; text-align: center; margin-top: 50px;'>";
+                echo "<h2>🎉 Bem-vindo ao painel do Jogo, " . htmlspecialchars($usuarioDigitado) . "!</h2>";
+                echo "</div>";
+            } else {
+                echo "<div style='color: orange; font-family: Arial; text-align: center; margin-top: 50px;'>";
+                echo "<h2>🔑 Senha incorreta!</h2>";
+                echo "<a href='index.php'>Tentar novamente</a>";
+                echo "</div>";
+            }
         }
+    } else {
+        // Se o formulário foi enviado mas faltavam dados
+        header("Location: index.php");
+        exit();
     }
 
 } else {
